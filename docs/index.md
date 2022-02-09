@@ -1,59 +1,84 @@
 ---
-repository: "https://github.com/turbot/steampipe-mod-oci-compliance"
+repository: "https://github.com/turbot/steampipe-mod-terraform-oci-compliance"
 ---
 
-# Oracle Cloud Compliance Mod
+# Terraform OCI Compliance
 
-Run individual configuration, compliance and security controls or full compliance benchmarks for `CIS` across all your Oracle Cloud accounts.
+Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts.
 
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-oci-compliance/main/docs/oci-compliance-mod-console.png)
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_console_output.png)
 
 ## References
 
-[Oracle Cloud](https://www.oracle.com/cloud/) provides on-demand cloud computing platforms and APIs to authenticated customers on a metered pay-as-you-go basis.
-
-[CIS Oracle Cloud Benchmarks](https://www.cisecurity.org/benchmark/oracle_cloud/) provide a predefined set of compliance and security best-practice checks for Oracle Cloud accounts.
+[Terraform](https://terraform.io/) is an open-source infrastructure as code software tool that provides a consistent CLI workflow to manage hundreds of cloud services.
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
 [Steampipe Mods](https://steampipe.io/docs/reference/mod-resources#mod) are collections of `named queries`, and codified `controls` that can be used to test current configuration of your cloud resources against a desired configuration.
 
+
 ## Documentation
 
-- **[Benchmarks and controls →](https://hub.steampipe.io/mods/turbot/oci_compliance/controls)**
-- **[Named queries →](https://hub.steampipe.io/mods/turbot/oci_compliance/queries)**
+- **[Benchmarks and controls →](https://hub.steampipe.io/mods/turbot/terraform_oci_compliance/controls)**
+- **[Named queries →](https://hub.steampipe.io/mods/turbot/terraform_oci_compliance/queries)**
 
 ## Get started
 
-Install the Oracle Cloud plugin with [Steampipe](https://steampipe.io):
+Install the Terraform plugin with [Steampipe](https://steampipe.io):
+
 ```shell
-steampipe plugin install oci
+steampipe plugin install terraform
 ```
 
-Clone:
+Configure the Terraform plugin, adding any path that contains your Terraform files to `paths`:
+
 ```sh
-git clone https://github.com/turbot/steampipe-mod-oci-compliance.git
-cd steampipe-mod-oci-compliance
+vi ~/.steampipe/config/terraform.spc
+```
+
+```hcl
+connection "terraform" {
+  plugin = "terraform"
+  paths  = ["/path/to/my/tf/files/*.tf"]
+}
+```
+
+For more details on connection configuration, please refer [Terraform Plugin Configuration](https://hub.steampipe.io/plugins/turbot/terraform#configuration).
+
+Clone:
+
+```sh
+git clone https://github.com/turbot/steampipe-mod-terraform-oci-compliance.git
+cd steampipe-mod-terraform-oci-compliance
 ```
 
 Run all benchmarks:
+
 ```shell
 steampipe check all
 ```
 
-Run a single benchmark:
+Run all benchmarks for a specific compliance framework using tags:
+
 ```shell
-steampipe check benchmark.cis_v110
+steampipe check all --tag cft_scorecard_v1=true
+```
+
+Run a benchmark:
+
+```shell
+steampipe check terraform_oci_compliance.benchmark.bigquery
 ```
 
 Run a specific control:
+
 ```shell
-steampipe check control.cis_v110_2_1
+steampipe check terraform_oci_compliance.control.kms_key_rotated_within_100_day
 ```
 
 ### Credentials
 
-This mod uses the credentials configured in the [Steampipe Oracle Cloud plugin](https://hub.steampipe.io/plugins/turbot/oci).
+This mod uses the credentials configured in the [Steampipe Terraform plugin](https://hub.steampipe.io/plugins/turbot/terraform).
 
 ### Configuration
 
@@ -61,5 +86,5 @@ No extra configuration is required.
 
 ## Get involved
 
-* Contribute: [GitHub Repo](https://github.com/turbot/steampipe-mod-oci-compliance)
-* Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
+* Contribute: [GitHub Repo](https://github.com/turbot/steampipe-mod-terraform-oci-compliance)
+* Community: [Slack Channel](https://steampipe.io/community/join)

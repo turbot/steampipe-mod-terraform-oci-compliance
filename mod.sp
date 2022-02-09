@@ -1,15 +1,21 @@
-mod "oci_compliance" {
-  # hub metadata
-  title         = "Oracle Cloud Infrastructure Compliance"
-  description   = "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS across all of your Oracle Cloud Infrastructure accounts using Steampipe."
-  color         = "#F80000"
+mod "terraform_oci_compliance" {
+  # Hub metadata
+  title         = "Terraform OCI Compliance"
+  description   = "Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts."
+  color         = "#844FBA"
   documentation = file("./docs/index.md")
-  icon          = "/images/mods/turbot/oci-compliance.svg"
-  categories    = ["oci", "cis", "compliance", "public cloud", "security", "terraform"]
+  icon          = "/images/mods/turbot/terraform-oci-compliance.svg"
+  categories    = ["oci", "compliance", "iac", "security", "terraform"]
 
   opengraph {
-    title       = "Steampipe Mod for Oracle Cloud Infrastructure Compliance"
-    description = "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS across all of your Oracle Cloud Infrastructure accounts using Steampipe."
-    image       = "/images/mods/turbot/oci-compliance-social-graphic.png"
+    title       = "Steampipe Mod to Analyze Terraform"
+    description = "Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts."
+    image       = "/images/mods/turbot/terraform-oci-compliance-social-graphic.png"
+  }
+
+  requires {
+    plugin "terraform" {
+      version = "0.0.1"
+    }
   }
 }
