@@ -33,4 +33,3 @@ select
   path
 from
   all_security_rules as a left join non_complaint as b on a.name = b.name
-
