@@ -6,7 +6,7 @@ locals {
 
 benchmark "objectstorage" {
   title       = "Object Storage"
-  description = "This benchmark provides a set of controls that detect Terraform OCI Identity and Access Management resources deviating from security best practices."
+  description = "This benchmark provides a set of controls that detect Terraform OCI Object Storage resources deviating from security best practices."
 
   children = [
     control.objectstorage_bucket_encryption_enabled,
