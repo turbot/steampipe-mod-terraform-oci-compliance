@@ -35,9 +35,6 @@ control "core_default_security_group_allow_icmp_only" {
 
   tags = merge(local.core_compliance_common_tags, {
     cis         = true
-    cis_item_id = "2.5"
-    cis_level   = "1"
-    cis_type    = "manual"
   })
 }
 
@@ -48,9 +45,6 @@ control "core_network_security_list_restrict_ingress_rdp_all" {
 
   tags = merge(local.core_compliance_common_tags, {
     cis         = true
-    cis_item_id = "2.4"
-    cis_level   = "1"
-    cis_type    = "manual"
   })
 }
 
@@ -61,9 +55,6 @@ control "core_network_security_list_restrict_ingress_ssh_all" {
 
   tags = merge(local.core_compliance_common_tags, {
     cis         = true
-    cis_item_id = "2.3"
-    cis_level   = "1"
-    cis_type    = "manual"
   })
 }
 

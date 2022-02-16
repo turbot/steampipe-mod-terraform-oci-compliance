@@ -22,8 +22,5 @@ control "identity_authentication_password_policy_strong_min_length_14" {
 
   tags = merge(local.identity_compliance_common_tags, {
     cis         = true
-    cis_item_id = "1.4"
-    cis_level   = "1"
-    cis_type    = "manual"
   })
 }

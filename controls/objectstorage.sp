@@ -31,8 +31,5 @@ control "objectstorage_bucket_public_access_blocked" {
 
   tags = merge(local.objectstorage_compliance_common_tags, {
     cis         = true
-    cis_item_id = "4.1"
-    cis_level   = "1"
-    cis_type    = "manual"
   })
 }
