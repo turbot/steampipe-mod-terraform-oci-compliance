@@ -18,7 +18,7 @@ benchmark "objectstorage" {
 
 control "objectstorage_bucket_encryption_enabled" {
   title       = "Object storage bucket encryption should be enabled"
-  description = "Password policies are used to enforce password complexity requirements. IAM password policies can be used to ensure password are at least a certain length and are composed of certain characters. It is recommended the password policy require a minimum password length 14 characters and contain 1 non-alphabetic character (Number or 'Special Character')."
+  description = "Ensure that the Object storage buckets are encrypted at rest to protect sensitive data."
   sql           = query.objectstorage_bucket_encryption_enabled.sql
 
   tags = local.objectstorage_compliance_common_tags

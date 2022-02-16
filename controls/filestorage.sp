@@ -17,7 +17,7 @@ benchmark "filestorage" {
 
 control "file_storage_file_system_encryption_enabled" {
   title       = "File Storage file system encryption should be enabled"
-  description = "Ensure file storage file system  is encrypted at rest to protect sensitive data."
+  description = "Ensure file storage file systems are encrypted at rest to protect sensitive data."
   sql           = query.file_storage_file_system_encryption_enabled.sql
 
   tags = local.filestorage_compliance_common_tags
