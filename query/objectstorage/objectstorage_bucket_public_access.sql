@@ -7,8 +7,8 @@ select
   end as status,
   name || case
     when (arguments ->> 'access_type') in ('ObjectRead', 'ObjectReadWithoutList')
-    then ' is public'
-    else ' is not public'
+    then ' is publicly accessible'
+    else ' is not publicly accessible'
   end || '.' reason,
   path
 from
