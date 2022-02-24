@@ -15,7 +15,7 @@ mod "terraform_oci_compliance" {
 
   requires {
     plugin "terraform" {
-      version = "0.0.1"
+      version = "0.0.5"
     }
   }
 }
