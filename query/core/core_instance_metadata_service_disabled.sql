@@ -1,12 +1,14 @@
 select
   type || ' ' || name as resource,
   case
-    when (arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean
+    when ((arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled') is not null and
+      (arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean)
     then 'ok'
     else 'alarm'
   end as status,
   name || case
-    when (arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean
+    when ((arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled') is not null and
+      (arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean)
     then ' legacy metadata service endpoint disabled'
     else ' legacy metadata service endpoint enabled'
   end || '.' reason,
