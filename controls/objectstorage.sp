@@ -10,7 +10,8 @@ benchmark "objectstorage" {
 
   children = [
     control.objectstorage_bucket_encryption_enabled,
-    control.objectstorage_bucket_public_access_blocked
+    control.objectstorage_bucket_public_access_blocked,
+    control.objectstorage_bucket_versioning_enabled
   ]
 
   tags = local.objectstorage_compliance_common_tags
@@ -20,6 +21,14 @@ control "objectstorage_bucket_encryption_enabled" {
   title       = "Object storage bucket encryption should be enabled"
   description = "Ensure that the Object storage buckets are encrypted at rest to protect sensitive data."
   sql           = query.objectstorage_bucket_encryption_enabled.sql
+
+  tags = local.objectstorage_compliance_common_tags
+}
+
+control "objectstorage_bucket_versioning_enabled" {
+  title       = "Object storage bucket versioning should be enabled"
+  description = "Object versioning provides data protection against accidental or malicious object update, overwrite, or deletion. Enabled at the bucket level, versioning directs Object Storage to automatically create an object version each time a new object is uploaded, an existing object is overwritten, or when an object is deleted."
+  sql           = query.objectstorage_bucket_versioning_enabled.sql
 
   tags = local.objectstorage_compliance_common_tags
 }
