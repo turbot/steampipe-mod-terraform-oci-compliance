@@ -8,7 +8,7 @@ select
     when coalesce((arguments ->> 'kms_key_id'), '') = '' then ' encryption disabled'
     else ' encryption enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -41,6 +41,6 @@ select
     when (split_part(b.nsg_id , '.', 2))  is null then ' ingress restricted for port 3389 from 0.0.0.0/0'
     else ' ingress rule(s) allowing port 3389 from 0.0.0.0/0'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   all_sg as a left join non_complaint as b on a.name = (split_part(b.nsg_id , '.', 2))

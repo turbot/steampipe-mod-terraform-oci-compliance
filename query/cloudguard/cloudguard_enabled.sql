@@ -9,7 +9,7 @@ select
     when (arguments ->> 'status') = 'ENABLED' then ' CloudGuard enabled'
     else ' CloudGuard disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -10,7 +10,7 @@ select
     then ' has versioning enabled'
     else ' has versioning disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

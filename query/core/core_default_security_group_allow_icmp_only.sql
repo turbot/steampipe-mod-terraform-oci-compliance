@@ -30,6 +30,6 @@ select
     when b.count > 0 or (a.arguments -> 'ingress_security_rules' ->> 'protocol' != '1') then ' configured with non ICMP ports'
     else ' configured with ICMP ports only'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   all_security_rules as a left join non_complaint as b on a.name = b.name

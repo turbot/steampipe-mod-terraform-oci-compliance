@@ -12,7 +12,7 @@ select
     then ' in-transit data encryption enabled'
     else ' in-transit data encryption disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where
