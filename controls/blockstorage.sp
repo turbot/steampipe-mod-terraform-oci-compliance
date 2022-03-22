@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "blockstorage" {
-  title       = "Storage"
-  description = "This benchmark provides a set of controls that detect Terraform OCI Storage resources deviating from security best practices."
+  title       = "Block Storage"
+  description = "This benchmark provides a set of controls that detect Terraform OCI Block Storage resources deviating from security best practices."
 
   children = [
     control.blockstorage_boot_volume_backup_encryption_enabled,
@@ -18,7 +18,7 @@ benchmark "blockstorage" {
 }
 
 control "blockstorage_boot_volume_backup_encryption_enabled" {
-  title       = "Boot volume backup encryption should be enabled"
+  title       = "Block storage boot volume backup encryption should be enabled"
   description = "Ensure boot volume backups are encrypted at rest to protect sensitive data."
   sql           = query.blockstorage_boot_volume_backup_encryption_enabled.sql
 
@@ -27,7 +27,7 @@ control "blockstorage_boot_volume_backup_encryption_enabled" {
 }
 
 control "blockstorage_boot_volume_encryption_enabled" {
-  title       = "Boot volume encryption should be enabled"
+  title       = "Block storage boot volume encryption should be enabled"
   description = "Ensure boot volume is encrypted at rest to protect sensitive data."
   sql           = query.blockstorage_boot_volume_encryption_enabled.sql
 
@@ -35,7 +35,7 @@ control "blockstorage_boot_volume_encryption_enabled" {
 }
 
 control "blockstorage_volume_encryption_enabled" {
-  title       = "Block volume encryption should be enabled"
+  title       = "Block storage block volume encryption should be enabled"
   description = "Ensure block volumes are encrypted at rest to protect sensitive data."
   sql           = query.blockstorage_volume_encryption_enabled.sql
 
