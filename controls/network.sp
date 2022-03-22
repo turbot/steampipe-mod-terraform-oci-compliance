@@ -19,7 +19,7 @@ benchmark "network" {
 }
 
 control "network_subnet_public_access_blocked" {
-  title       = "Ensure subnetwork is not publicly accessible"
+  title       = "Ensure subnetworks are not publicly accessible"
   description = "Public access to a network's subnetwork increases resource attack surface and unnecessarily raises the risk of resource compromise. A network source is a set of defined IP addresses. The IP addresses can be public IP addresses or IP addresses from VCNs within your tenancy. After you create a network source, you can reference it in policy or in your tenancy's authentication settings to control access based on the originating IP address."
   sql           = query.network_subnet_public_access_blocked.sql
 
