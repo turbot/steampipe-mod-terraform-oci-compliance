@@ -107,7 +107,7 @@ steampipe check terraform_oci_compliance.benchmark.cloudguard
 Run a specific control:
 
 ```sh
-steampipe check terraform_oci_compliance.control.core_boot_volume_encryption_enabled
+steampipe check terraform_oci_compliance.control.database_db_system_encryption_enabled
 ```
 
 ### Credentials

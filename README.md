@@ -1,6 +1,6 @@
 # Terraform OCI Compliance
 
-13 compliance and security controls to test your Terraform OCI resources against security best practices prior to deployment in your OCI accounts.
+18 compliance and security controls to test your Terraform OCI resources against security best practices prior to deployment in your OCI accounts.
 
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_console_output.png)
 
@@ -90,7 +90,7 @@ steampipe check terraform_oci_compliance.benchmark.cloudguard
 Run a specific control:
 
 ```sh
-steampipe check terraform_oci_compliance.control.core_boot_volume_encryption_enabled
+steampipe check terraform_oci_compliance.control.database_db_system_encryption_enabled
 ```
 
 ## Contributing
