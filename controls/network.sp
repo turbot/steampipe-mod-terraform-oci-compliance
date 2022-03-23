@@ -28,7 +28,7 @@ control "network_subnet_public_access_blocked" {
 }
 
 control "network_default_security_group_allow_icmp_only" {
-  title       = "Ensure the default security list of every VCN restricts all traffic except ICMP"
+  title       = "Ensure the Network default security list of every VCN restricts all traffic except ICMP"
   description = "A default security list is created when a Virtual Cloud Network (VCN) is created. Security lists provide stateful filtering of ingress and egress network traffic to OCI resources. It is recommended no security list allows unrestricted ingress access to Secure Shell (SSH) via port 22."
   sql           = query.network_default_security_group_allow_icmp_only.sql
 
@@ -38,7 +38,7 @@ control "network_default_security_group_allow_icmp_only" {
 }
 
 control "network_security_list_restrict_ingress_rdp_all" {
-  title       = "Ensure no network security groups allow ingress from 0.0.0.0/0 to port 3389"
+  title       = "Ensure no Network security groups allow ingress from 0.0.0.0/0 to port 3389"
   description = "Network security groups provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security group allows unrestricted ingress access to port 3389."
   sql           = query.network_security_list_restrict_ingress_rdp_all.sql
 
@@ -48,7 +48,7 @@ control "network_security_list_restrict_ingress_rdp_all" {
 }
 
 control "network_security_list_restrict_ingress_ssh_all" {
-  title       = "Ensure no network security groups allow ingress from 0.0.0.0/0 to port 22"
+  title       = "Ensure no Network security groups allow ingress from 0.0.0.0/0 to port 22"
   description = "Network security groups provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security group allows unrestricted ingress access to port 22."
   sql           = query.network_security_list_restrict_ingress_ssh_all.sql
 

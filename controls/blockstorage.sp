@@ -11,15 +11,15 @@ benchmark "blockstorage" {
   children = [
     control.blockstorage_boot_volume_backup_encryption_enabled,
     control.blockstorage_boot_volume_encryption_enabled,
-    control.blockstorage_volume_encryption_enabled
+    control.blockstorage_block_volume_encryption_enabled
   ]
 
   tags = local.blockstorage_compliance_common_tags
 }
 
 control "blockstorage_boot_volume_backup_encryption_enabled" {
-  title       = "Block storage boot volume backup encryption should be enabled"
-  description = "Ensure boot volume backups are encrypted at rest to protect sensitive data."
+  title       = "Block Storage boot volume backup encryption should be enabled"
+  description = "Ensure Block Storage boot volume backups are encrypted at rest to protect sensitive data."
   sql           = query.blockstorage_boot_volume_backup_encryption_enabled.sql
 
   tags = local.blockstorage_compliance_common_tags
@@ -27,17 +27,17 @@ control "blockstorage_boot_volume_backup_encryption_enabled" {
 }
 
 control "blockstorage_boot_volume_encryption_enabled" {
-  title       = "Block storage boot volume encryption should be enabled"
-  description = "Ensure boot volume is encrypted at rest to protect sensitive data."
+  title       = "Block Storage boot volume encryption should be enabled"
+  description = "Ensure Block Storage boot volumes are encrypted at rest to protect sensitive data."
   sql           = query.blockstorage_boot_volume_encryption_enabled.sql
 
   tags = local.blockstorage_compliance_common_tags
 }
 
-control "blockstorage_volume_encryption_enabled" {
-  title       = "Block storage block volume encryption should be enabled"
-  description = "Ensure block volumes are encrypted at rest to protect sensitive data."
-  sql           = query.blockstorage_volume_encryption_enabled.sql
+control "blockstorage_block_volume_encryption_enabled" {
+  title       = "Block Storage block volume encryption should be enabled"
+  description = "Ensure Block Storage block volumes are encrypted at rest to protect sensitive data."
+  sql           = query.blockstorage_block_volume_encryption_enabled.sql
 
   tags = local.blockstorage_compliance_common_tags
 }
