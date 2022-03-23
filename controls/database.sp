@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "database" {
-  title       = "Database Service"
+  title       = "Database"
   description = "This benchmark provides a set of controls that detect Terraform OCI Database resources deviating from security best practices."
 
   children = [
