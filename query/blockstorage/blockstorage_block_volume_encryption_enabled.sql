@@ -1,14 +1,14 @@
 select
   type || ' ' || name as resource,
   case
-    when coalesce((arguments ->> 'kms_key_id'), '') = '' then 'alarm'
+    when (arguments ->> 'kms_key_id') is null then 'alarm'
     else 'ok'
   end as status,
   name || case
-    when coalesce((arguments ->> 'kms_key_id'), '') = '' then ' encryption disabled'
+   when (arguments ->> 'kms_key_id') is null then ' encryption disabled'
     else ' encryption enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

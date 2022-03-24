@@ -25,8 +25,8 @@ with all_sg_security_rule as (
     and (
       arguments ->> 'protocol' = 'all'
       or (
-        (arguments -> 'tcp_options' -> 'destination_port_range' ->> 'min')::integer <= 22
-        and (arguments -> 'tcp_options' -> 'destination_port_range' ->> 'max')::integer >= 22
+        (arguments -> 'tcp_options' -> 'destination_port_range' ->> 'min')::integer <= 3389
+        and (arguments -> 'tcp_options' -> 'destination_port_range' ->> 'max')::integer >= 3389
       )
     )
  group by nsg_id
@@ -38,9 +38,9 @@ select
     else 'alarm'
   end as status,
   a.name || case
-    when (split_part(b.nsg_id , '.', 2))  is null then ' ingress restricted for SSH from 0.0.0.0/0'
-    else ' ingress rule(s) allowing SSH from 0.0.0.0/0'
+    when (split_part(b.nsg_id , '.', 2))  is null then ' ingress restricted for port 3389 from 0.0.0.0/0'
+    else ' ingress rule(s) allowing port 3389 from 0.0.0.0/0'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   all_sg as a left join non_complaint as b on a.name = (split_part(b.nsg_id , '.', 2))

@@ -12,7 +12,7 @@ select
     then ' has monitoring enabled'
     else ' has monitoring disabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where

@@ -12,7 +12,7 @@ select
     then ' legacy metadata service endpoint disabled'
     else ' legacy metadata service endpoint enabled'
   end || '.' reason,
-  path
+  path || ':' || start_line
 from
   terraform_resource
 where
