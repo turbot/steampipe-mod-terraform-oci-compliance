@@ -1,8 +1,25 @@
+---
+repository: "https://github.com/turbot/steampipe-mod-terraform-oci-compliance"
+---
+
 # Terraform OCI Compliance
 
-18 compliance and security controls to test your Terraform OCI resources against security best practices prior to deployment in your OCI accounts.
+Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts.
 
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_console_output.png)
+
+## References
+
+[Terraform](https://terraform.io/) is an open-source infrastructure as code software tool that provides a consistent CLI workflow to manage hundreds of cloud services.
+
+[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+
+[Steampipe Mods](https://steampipe.io/docs/reference/mod-resources#mod) are collections of `named queries`, and codified `controls` that can be used to test current configuration of your cloud resources against a desired configuration.
+
+## Documentation
+
+- **[Benchmarks and controls →](https://hub.steampipe.io/mods/turbot/terraform_oci_compliance/controls)**
+- **[Named queries →](https://hub.steampipe.io/mods/turbot/terraform_oci_compliance/queries)**
 
 ## Get started
 
@@ -93,30 +110,15 @@ Run a specific control:
 steampipe check terraform_oci_compliance.control.database_db_system_encryption_enabled
 ```
 
-## Contributing
+### Credentials
 
-Have an idea for additional checks or best practices?
-- **[Join our Slack community →](https://steampipe.io/community/join)**
-- **[Mod developer guide →](https://steampipe.io/docs/using-steampipe/writing-controls)**
+This mod uses the credentials configured in the [Steampipe Terraform plugin](https://hub.steampipe.io/plugins/turbot/terraform).
 
-**Prerequisites**:
-- [Steampipe installed](https://steampipe.io/downloads)
-- Steampipe Terraform plugin installed (see above)
+### Configuration
 
-**Fork**:
-Click on the GitHub Fork Widget. (Don't forget to :star: the repo!)
+No extra configuration is required.
 
-**Clone**:
+## Get involved
 
-```sh
-git clone https://github.com/turbot/steampipe-mod-terraform-oci-compliance.git
-cd steampipe-mod-terraform-oci-compliance
-```
-
-Thanks for getting involved! We would love to have you [join our Slack community](https://steampipe.io/community/join) and hang out with other Steampipe Mod developers.
-
-Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/blob/main/LICENSE).
-
-`help wanted` issues:
-- [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
-- [Terraform OCI Compliance Mod](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/labels/help%20wanted)
+* Contribute: [GitHub Repo](https://github.com/turbot/steampipe-mod-terraform-oci-compliance)
+* Community: [Slack Channel](https://steampipe.io/community/join)
