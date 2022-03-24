@@ -7,7 +7,6 @@ _What's new?_
   - Cloud Guard
   - Compute
   - Database
-  - CloudTrail
   - File Storage
   - Identity and Access Management
   - Network
