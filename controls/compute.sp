@@ -1,6 +1,6 @@
 locals {
-  compute_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "compute"
+  compute_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/Compute"
   })
 }
 
@@ -13,7 +13,9 @@ benchmark "compute" {
     control.compute_instance_monitoring_enabled
   ]
 
-  tags = local.compute_compliance_common_tags
+  tags = merge(local.compute_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "compute_instance_metadata_service_disabled" {

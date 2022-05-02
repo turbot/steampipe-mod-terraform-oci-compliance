@@ -1,6 +1,6 @@
 locals {
-  blockstorage_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "blockstorage"
+  blockstorage_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/BlockStorage"
   })
 }
 
@@ -14,7 +14,9 @@ benchmark "blockstorage" {
     control.blockstorage_block_volume_encryption_enabled
   ]
 
-  tags = local.blockstorage_compliance_common_tags
+  tags = merge(local.blockstorage_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "blockstorage_boot_volume_backup_encryption_enabled" {

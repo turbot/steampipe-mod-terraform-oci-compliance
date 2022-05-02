@@ -1,6 +1,6 @@
 locals {
-  identity_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "identity"
+  identity_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/Identity"
   })
 }
 
@@ -12,7 +12,9 @@ benchmark "identity" {
     control.identity_authentication_password_policy_strong_min_length_14
   ]
 
-  tags = local.identity_compliance_common_tags
+  tags = merge(local.identity_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "identity_authentication_password_policy_strong_min_length_14" {
