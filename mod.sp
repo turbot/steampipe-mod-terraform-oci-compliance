@@ -1,3 +1,12 @@
+// Benchmarks and controls for specific services should override the "service" tag
+locals {
+  terraform_oci_compliance_common_tags = {
+    category = "Compliance"
+    plugin   = "terraform"
+    service  = "OCI"
+  }
+}
+
 mod "terraform_oci_compliance" {
   # Hub metadata
   title         = "Terraform OCI Compliance"
