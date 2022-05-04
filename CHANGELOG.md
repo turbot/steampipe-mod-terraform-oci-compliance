@@ -4,7 +4,7 @@ _Enhancements_
 
 - Added `category`, `service`, and `type` tags to benchmarks and controls. ([#11](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/11))
 
-_Breaking Changes_
+_Breaking changes_
 
 - Renamed the `network` benchmark (`steampipe check terraform_oci_compliance.benchmark.network`) to `vcn` benchmark (`steampipe check terraform_oci_compliance.benchmark.vcn`) to maintain consistency with OCI documentation. ([#11](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/11))
 - Renamed the following controls and queries to maintain consistency with the benchmark names:
