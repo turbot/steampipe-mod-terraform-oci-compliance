@@ -1,6 +1,6 @@
 locals {
-  cloudguard_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "cloudguard"
+  cloudguard_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/CloudGuard"
   })
 }
 
@@ -12,7 +12,9 @@ benchmark "cloudguard" {
     control.cloudguard_enabled
   ]
 
-  tags = local.cloudguard_compliance_common_tags
+  tags = merge(local.cloudguard_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "cloudguard_enabled" {

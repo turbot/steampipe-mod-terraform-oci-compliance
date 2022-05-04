@@ -1,6 +1,6 @@
 locals {
-  database_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "database"
+  database_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/Database"
   })
 }
 
@@ -14,7 +14,9 @@ benchmark "database" {
     control.database_db_system_encryption_enabled
   ]
 
-  tags = local.database_compliance_common_tags
+  tags = merge(local.database_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "database_db_encryption_enabled" {

@@ -1,6 +1,6 @@
 locals {
-  objectstorage_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "objectstorage"
+  objectstorage_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/ObjectStorage"
   })
 }
 
@@ -14,7 +14,9 @@ benchmark "objectstorage" {
     control.objectstorage_bucket_versioning_enabled
   ]
 
-  tags = local.objectstorage_compliance_common_tags
+  tags = merge(local.objectstorage_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "objectstorage_bucket_encryption_enabled" {

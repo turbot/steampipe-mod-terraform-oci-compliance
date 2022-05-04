@@ -1,6 +1,6 @@
 locals {
-  filestorage_compliance_common_tags = merge(local.compliance_common_tags, {
-    service = "filestorage"
+  filestorage_compliance_common_tags = merge(local.terraform_oci_compliance_common_tags, {
+    service = "OCI/FileStorage"
   })
 }
 
@@ -12,7 +12,9 @@ benchmark "filestorage" {
     control.file_storage_file_system_encryption_enabled
   ]
 
-  tags = local.filestorage_compliance_common_tags
+  tags = merge(local.filestorage_compliance_common_tags, {
+    type    = "Benchmark"
+  })
 }
 
 control "file_storage_file_system_encryption_enabled" {
