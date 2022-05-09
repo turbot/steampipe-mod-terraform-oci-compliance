@@ -1,3 +1,9 @@
+## v0.3 [2022-05-09]
+
+_Enhancements_
+
+- Updated docs/index.md and README with new dashboard screenshots and latest format. ([#15](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/15))
+
 ## v0.2 [2022-05-04]
 
 _Enhancements_
