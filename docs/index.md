@@ -6,9 +6,9 @@ repository: "https://github.com/turbot/steampipe-mod-terraform-oci-compliance"
 
 Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts.
 
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_vcn_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_console_output.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/update-doc-fix/docs/terraform_oci_compliance_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/update-doc-fix/docs/terraform_oci_compliance_vcn_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/update-doc-fix/docs/terraform_oci_compliance_console_output.png" width="50%" type="thumbnail"/>
 
 ## References
 
@@ -44,58 +44,26 @@ Clone:
 
 ```sh
 git clone https://github.com/turbot/steampipe-mod-terraform-oci-compliance.git
-cd steampipe-mod-terraform-oci-compliance
 ```
-
-### Configuration
-
-By default, the Terraform plugin configuration loads Terraform configuration
-files in your current working directory. If you are running benchmarks and
-controls from the current working directory, no extra plugin configuration is
-necessary.
-
-If you want to run benchmarks and controls across multiple directories, they
-can be run from within the `steampipe-mod-terraform-oci-compliance` mod
-directory after configuring the Terraform plugin configuration:
-
-```sh
-vi ~/.steampipe/config/terraform.spc
-```
-
-```hcl
-connection "terraform" {
-  plugin = "terraform"
-  paths  = ["/path/to/files/*.tf", "/path/to/more/files/*.tf"]
-}
-```
-
-For more details on connection configuration, please refer to [Terraform Plugin Configuration](https://hub.steampipe.io/plugins/turbot/terraform#configuration).
 
 ### Usage
 
-If you are running from the current working directory containing your Terraform
-configuration files, the Steampipe workspace must be set to the location where
-you downloaded the `steampipe-mod-terraform-oci-compliance` mod:
+By default, the Terraform plugin configuration loads Terraform configuration
+files in your current working directory (CWD).
 
-Set through an environment variable:
+To get started, change your CWD to where your TF files are located:
+
+```sh
+cd /path/to/tf_files
+```
+
+Then set the `STEAMPIPE_WORKSPACE_CHDIR` environment variable to the mod directory so Steampipe knows where to load benchmarks from:
 
 ```sh
 export STEAMPIPE_WORKSPACE_CHDIR=/path/to/steampipe-mod-terraform-oci-compliance
 ```
 
-Set through the CLI argument:
-
-```sh
-steampipe check all --workspace-chdir=/path/to/steampipe-mod-terraform-oci-compliance
-```
-
-However, if you are running from within the
-`steampipe-mod-terraform-oci-compliance` mod directory and `paths` was
-configured in the Terraform plugin configuration, the Steampipe workspace does
-not need to be set (since you are already in the Steampipe workspace
-directory).
-
-Start your dashboard server to get started:
+Start your dashboard server:
 
 ```sh
 steampipe dashboard
@@ -129,11 +97,49 @@ steampipe check terraform_oci_compliance.benchmark.vcn
 Run a specific control:
 
 ```sh
-terraform_oci_compliance.control.vcn_subnet_public_access_blocked
+steampipe check terraform_oci_compliance.control.vcn_subnet_public_access_blocked
+```
+
+When running checks from the CWD, you can also run the `steampipe dashboard` and `steampipe check` commands using the `--workspace-chdir` command line argument:
+
+```sh
+steampipe dashboard --workspace-chdir=/path/to/steampipe-mod-terraform-oci-compliance
+steampipe check all --workspace-chdir=/path/to/steampipe-mod-terraform-oci-compliance
 ```
 
 Different output formats are also available, for more information please see
 [Output Formats](https://steampipe.io/docs/reference/cli/check#output-formats).
+
+### Credentials
+
+No credentials are required.
+
+### Configuration
+
+If you want to run benchmarks and controls across multiple directories
+containing Terraform configuration files, they can be run from within the
+`steampipe-mod-terraform-oci-compliance` mod directory after configuring the
+Terraform plugin configuration:
+
+```sh
+vi ~/.steampipe/config/terraform.spc
+```
+
+```hcl
+connection "terraform" {
+  plugin = "terraform"
+  paths  = ["/path/to/files/*.tf", "/path/to/nested/files/**/*.tf"]
+}
+```
+
+After setting up your Terraform plugin configuration, navigate to the `steampipe-mod-terraform-oci-compliance` mod directory and start the dashboard server:
+
+```sh
+cd /path/to/steampipe-mod-terraform-oci-compliance
+steampipe dashboard
+```
+
+For more details on connection configuration, please refer to [Terraform Plugin Configuration](https://hub.steampipe.io/plugins/turbot/terraform#configuration).
 
 ## Contributing
 
