@@ -6,9 +6,9 @@ repository: "https://github.com/turbot/steampipe-mod-terraform-oci-compliance"
 
 Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts.
 
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/update-doc-fix/docs/terraform_oci_compliance_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/update-doc-fix/docs/terraform_oci_compliance_vcn_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/update-doc-fix/docs/terraform_oci_compliance_console_output.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_vcn_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_console_output.png" width="50%" type="thumbnail"/>
 
 ## References
 
