@@ -2,22 +2,36 @@
 
 18 compliance and security controls to test your Terraform OCI resources against security best practices prior to deployment in your OCI accounts.
 
+Run checks in a dashboard:
+
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_dashboard.png)
+
+Or in a terminal:
+
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-terraform-oci-compliance/main/docs/terraform_oci_compliance_console_output.png)
 
-## Get started
+## Getting started
 
 ### Installation
+
+Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
+
+```sh
+brew tap turbot/tap
+brew install steampipe
+```
+
+Install the terraform plugin with [Steampipe](https://steampipe.io):
+
+```sh
+steampipe plugin install terraform
+```
 
 Clone:
 
 ```sh
 git clone https://github.com/turbot/steampipe-mod-terraform-oci-compliance.git
-```
-
-Install the Terraform plugin with [Steampipe](https://steampipe.io):
-
-```sh
-steampipe plugin install terraform
+cd steampipe-mod-terraform-oci-compliance
 ```
 
 ### Configuration
@@ -54,7 +68,6 @@ Set through an environment variable:
 
 ```sh
 export STEAMPIPE_WORKSPACE_CHDIR=/path/to/steampipe-mod-terraform-oci-compliance
-steampipe check all
 ```
 
 Set through the CLI argument:
@@ -68,6 +81,19 @@ However, if you are running from within the
 configured in the Terraform plugin configuration, the Steampipe workspace does
 not need to be set (since you are already in the Steampipe workspace
 directory).
+
+Start your dashboard server to get started:
+
+```sh
+steampipe dashboard
+```
+
+By default, the dashboard interface will then be launched in a new browser
+window at https://localhost:9194. From here, you can run benchmarks by
+selecting one or searching for a specific one.
+
+Instead of running benchmarks in a dashboard, you can also run them within your
+terminal with the `steampipe check` command.
 
 Run all benchmarks:
 
@@ -84,39 +110,27 @@ steampipe check all --tag cis=true
 Run a benchmark:
 
 ```sh
-steampipe check terraform_oci_compliance.benchmark.cloudguard
+steampipe check terraform_oci_compliance.benchmark.vcn
 ```
 
 Run a specific control:
 
 ```sh
-steampipe check terraform_oci_compliance.control.database_db_system_encryption_enabled
+terraform_oci_compliance.control.vcn_subnet_public_access_blocked
 ```
+
+Different output formats are also available, for more information please see
+[Output Formats](https://steampipe.io/docs/reference/cli/check#output-formats).
 
 ## Contributing
 
-Have an idea for additional checks or best practices?
-- **[Join our Slack community →](https://steampipe.io/community/join)**
-- **[Mod developer guide →](https://steampipe.io/docs/using-steampipe/writing-controls)**
+If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing.
 
-**Prerequisites**:
-- [Steampipe installed](https://steampipe.io/downloads)
-- Steampipe Terraform plugin installed (see above)
-
-**Fork**:
-Click on the GitHub Fork Widget. (Don't forget to :star: the repo!)
-
-**Clone**:
-
-```sh
-git clone https://github.com/turbot/steampipe-mod-terraform-oci-compliance.git
-cd steampipe-mod-terraform-oci-compliance
-```
-
-Thanks for getting involved! We would love to have you [join our Slack community](https://steampipe.io/community/join) and hang out with other Steampipe Mod developers.
+- **[Join our Slack community →](https://steampipe.io/community/join)** and hang out with other Mod developers.
 
 Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/blob/main/LICENSE).
 
-`help wanted` issues:
+Want to help but not sure where to start? Pick up one of the `help wanted` issues:
+
 - [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
 - [Terraform OCI Compliance Mod](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/labels/help%20wanted)
