@@ -13,15 +13,16 @@ with all_security_list as (
     all_security_list,
     jsonb_array_elements(
     case jsonb_typeof(arguments -> 'ingress_security_rules')
-        when 'array' then (arguments -> 'ingress_security_rules')
-        else null end
+      when 'array' then (arguments -> 'ingress_security_rules')
+      else null end
     ) as p
   where
     p ->> 'source' = '0.0.0.0/0'
     and (
       p ->> 'protocol' = 'all'
       or (
-        (p -> 'tcp_options' ->> 'min')::integer <= 22
+         p ->> 'protocol' = '6'
+        and (p -> 'tcp_options' ->> 'min')::integer <= 22
         and (p -> 'tcp_options' ->> 'max')::integer >= 22
       )
     )
@@ -31,12 +32,32 @@ with all_security_list as (
 select
   a.type || ' ' || a.name as resource,
   case
-    when b.count > 0  then 'alarm'
+    when b.count > 0 or
+      ((a.arguments -> 'ingress_security_rules' ->> 'source' = '0.0.0.0/0' )
+      and (
+        (a.arguments -> 'ingress_security_rules' ->> 'protocol' = 'all')
+        or ((a.arguments -> 'ingress_security_rules' ->> 'protocol' = '6')
+          and (a.arguments -> 'ingress_security_rules' -> 'tcp_options' is null))
+        or ((a.arguments -> 'ingress_security_rules' -> 'tcp_options' ->> 'min') ::integer <= 22
+          and (a.arguments -> 'ingress_security_rules' -> 'tcp_options' ->> 'max')::integer >= 22
+        )
+      ))
+    then 'alarm'
     else 'ok'
   end as status,
    a.name || case
-    when b.count > 0 or (a.arguments -> 'ingress_security_rules' ->> 'protocol' != '1') then ' configured with non ICMP ports'
-    else ' configured with ICMP ports only'
+    when b.count > 0  or
+      ((a.arguments -> 'ingress_security_rules' ->> 'source' = '0.0.0.0/0' )
+      and (
+        (a.arguments -> 'ingress_security_rules' ->> 'protocol' = 'all')
+        or ((a.arguments -> 'ingress_security_rules' ->> 'protocol' = '6')
+          and (a.arguments -> 'ingress_security_rules' -> 'tcp_options' is null))
+        or ((a.arguments -> 'ingress_security_rules' -> 'tcp_options' ->> 'min') ::integer <= 22
+          and (a.arguments -> 'ingress_security_rules' -> 'tcp_options' ->> 'max')::integer >= 22
+        )
+      ))
+      then ' ingress rule(s) allowing SSH from 0.0.0.0/0'
+    else ' ingress restricted for SSH from 0.0.0.0/0'
   end || '.' reason,
   path || ':' || start_line
 from
