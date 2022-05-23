@@ -10,6 +10,8 @@ benchmark "vcn" {
 
   children = [
     control.vcn_default_security_group_allow_icmp_only,
+    control.vcn_network_security_group_restrict_ingress_rdp_all,
+    control.vcn_network_security_group_restrict_ingress_ssh_all,
     control.vcn_security_list_restrict_ingress_rdp_all,
     control.vcn_security_list_restrict_ingress_ssh_all,
     control.vcn_subnet_public_access_blocked
@@ -37,9 +39,29 @@ control "vcn_default_security_group_allow_icmp_only" {
   })
 }
 
-control "vcn_security_list_restrict_ingress_rdp_all" {
-  title       = "Ensure no Network security groups allow ingress from 0.0.0.0/0 to port 3389"
+control "vcn_network_security_group_restrict_ingress_rdp_all" {
+  title       = "Ensure no Network security groups allow ingress from 0.0.0.0/0 to port 22"
   description = "Network security groups provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security group allows unrestricted ingress access to port 3389."
+  sql           = query.vcn_network_security_group_restrict_ingress_rdp_all.sql
+
+  tags = merge(local.vcn_compliance_common_tags, {
+    cis         = true
+  })
+}
+
+control "vcn_network_security_group_restrict_ingress_ssh_all" {
+  title       = "Ensure no Network security groups allow ingress from 0.0.0.0/0 to port 22"
+  description = "Network security groups provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security group allows unrestricted ingress access to port 22."
+  sql           = query.vcn_network_security_group_restrict_ingress_ssh_all.sql
+
+  tags = merge(local.vcn_compliance_common_tags, {
+    cis         = true
+  })
+}
+
+control "vcn_security_list_restrict_ingress_rdp_all" {
+  title       = "Ensure no security lists allow ingress from 0.0.0.0/0 to port 3389"
+  description = "Security lists provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security lists allows unrestricted ingress access to port 3389."
   sql           = query.vcn_security_list_restrict_ingress_rdp_all.sql
 
   tags = merge(local.vcn_compliance_common_tags, {
@@ -48,12 +70,11 @@ control "vcn_security_list_restrict_ingress_rdp_all" {
 }
 
 control "vcn_security_list_restrict_ingress_ssh_all" {
-  title       = "Ensure no Network security groups allow ingress from 0.0.0.0/0 to port 22"
-  description = "Network security groups provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security group allows unrestricted ingress access to port 22."
+  title       = "Ensure no security lists allow ingress from 0.0.0.0/0 to port 22"
+  description = "Security lists provide stateful filtering of ingress/egress network traffic to OCI resources. It is recommended that no security lists allows unrestricted ingress access to port 22."
   sql           = query.vcn_security_list_restrict_ingress_ssh_all.sql
 
   tags = merge(local.vcn_compliance_common_tags, {
     cis         = true
   })
 }
-
