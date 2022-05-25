@@ -1,3 +1,15 @@
+## v0.4 [2022-05-25]
+
+_What's new?_
+
+- New VCN controls added: ([#19](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/19))
+  - vcn_network_security_group_restrict_ingress_rdp_all (`steampipe check control.vcn_network_security_group_restrict_ingress_rdp_all`)
+  - vcn_network_security_group_restrict_ingress_ssh_all (`steampipe check control.vcn_network_security_group_restrict_ingress_ssh_all`)
+
+_Bug fixes_
+
+- Fixed `vcn_security_list_restrict_ingress_rdp_all` and `vcn_security_list_restrict_ingress_ssh_all` queries to correctly check if the security groups restrict ingress access to ports `3389` and `22` respectively. ([#19](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/19))
+
 ## v0.3 [2022-05-09]
 
 _Enhancements_
