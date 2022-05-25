@@ -8,7 +8,7 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed `vcn_security_list_restrict_ingress_rdp_all` and `vcn_security_list_restrict_ingress_ssh_all` queries to correctly check if the security groups restrict ingress access to ports `3389` and `22` respectively. ([#19](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/19))
+- Fixed `vcn_security_list_restrict_ingress_rdp_all` and `vcn_security_list_restrict_ingress_ssh_all` queries to correctly check if the security lists restrict ingress access to ports `3389` and `22` respectively. ([#19](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/19))
 
 ## v0.3 [2022-05-09]
 
