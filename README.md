@@ -1,4 +1,4 @@
-# Terraform OCI Compliance
+# Terraform OCI Compliance Mod for Steampipe
 
 18 compliance and security controls to test your Terraform OCI resources against security best practices prior to deployment in your OCI accounts.
 
