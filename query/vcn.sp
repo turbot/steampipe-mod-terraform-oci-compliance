@@ -46,7 +46,8 @@ query "vcn_network_security_group_restrict_ingress_rdp_all" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      all_sg as a left join non_complaint as b on a.name = (split_part(b.nsg_id , '.', 2))
+      all_sg as a
+      left join non_complaint as b on a.name = (split_part(b.nsg_id , '.', 2));
   EOQ
 }
 
@@ -98,7 +99,8 @@ query "vcn_network_security_group_restrict_ingress_ssh_all" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      all_sg as a left join non_complaint as b on a.name = (split_part(b.nsg_id , '.', 2))
+      all_sg as a
+      left join non_complaint as b on a.name = (split_part(b.nsg_id , '.', 2));
   EOQ
 }
 
@@ -168,7 +170,8 @@ query "vcn_security_list_restrict_ingress_ssh_all" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      all_security_list as a left join non_complaint as b on a.name = b.name
+      all_security_list as a
+      left join non_complaint as b on a.name = b.name;
   EOQ
 }
 
@@ -238,7 +241,8 @@ query "vcn_security_list_restrict_ingress_rdp_all" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      all_security_list as a left join non_complaint as b on a.name = b.name
+      all_security_list as a
+      left join non_complaint as b on a.name = b.name;
   EOQ
 }
 
@@ -304,6 +308,7 @@ query "vcn_default_security_group_allow_icmp_only" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      all_security_rules as a left join non_complaint as b on a.name = b.name
+      all_security_rules as a
+      left join non_complaint as b on a.name = b.name;
   EOQ
 }
