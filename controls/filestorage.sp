@@ -13,14 +13,14 @@ benchmark "filestorage" {
   ]
 
   tags = merge(local.filestorage_compliance_common_tags, {
-    type    = "Benchmark"
+    type = "Benchmark"
   })
 }
 
 control "file_storage_file_system_encryption_enabled" {
   title       = "File Storage file system encryption should be enabled"
   description = "Ensure File Storage file systems are encrypted at rest to protect sensitive data."
-  sql           = query.file_storage_file_system_encryption_enabled.sql
+  query       = query.file_storage_file_system_encryption_enabled
 
   tags = local.filestorage_compliance_common_tags
 
