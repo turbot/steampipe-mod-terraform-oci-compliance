@@ -1,13 +1,13 @@
 query "objectstorage_bucket_encryption_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then 'alarm'
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then ' encryption disabled'
+      split_part(address, '.', 2) || case
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then ' encryption disabled'
         else ' encryption enabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -22,14 +22,14 @@ query "objectstorage_bucket_encryption_enabled" {
 query "objectstorage_bucket_public_access_blocked" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'access_type') in ('ObjectRead', 'ObjectReadWithoutList')
+        when (attributes_std ->> 'access_type') in ('ObjectRead', 'ObjectReadWithoutList')
         then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when (arguments ->> 'access_type') in ('ObjectRead', 'ObjectReadWithoutList')
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'access_type') in ('ObjectRead', 'ObjectReadWithoutList')
         then ' is publicly accessible'
         else ' is not publicly accessible'
       end || '.' reason
@@ -45,14 +45,14 @@ query "objectstorage_bucket_public_access_blocked" {
 query "objectstorage_bucket_versioning_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'versioning') = 'Enabled'
+        when (attributes_std ->> 'versioning') = 'Enabled'
         then 'ok'
         else 'alarm'
       end as status,
-      name || case
-        when (arguments ->> 'versioning') = 'Enabled'
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'versioning') = 'Enabled'
         then ' has versioning enabled'
         else ' has versioning disabled'
       end || '.' reason

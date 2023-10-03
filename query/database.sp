@@ -1,13 +1,13 @@
 query "database_db_home_encryption_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then 'alarm'
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then ' encryption disabled'
+      split_part(address, '.', 2) || case
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then ' encryption disabled'
         else ' encryption enabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -22,13 +22,13 @@ query "database_db_home_encryption_enabled" {
 query "database_db_encryption_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then 'alarm'
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then ' encryption disabled'
+      split_part(address, '.', 2) || case
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then ' encryption disabled'
         else ' encryption enabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
@@ -43,13 +43,13 @@ query "database_db_encryption_enabled" {
 query "database_db_system_encryption_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then 'alarm'
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then 'alarm'
         else 'ok'
       end as status,
-      name || case
-        when coalesce((arguments ->> 'kms_key_id'), '') = '' then ' encryption disabled'
+      split_part(address, '.', 2) || case
+        when coalesce((attributes_std ->> 'kms_key_id'), '') = '' then ' encryption disabled'
         else ' encryption enabled'
       end || '.' reason
       ${local.tag_dimensions_sql}

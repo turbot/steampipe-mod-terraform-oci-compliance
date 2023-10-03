@@ -1,14 +1,14 @@
 query "cloudguard_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when (arguments ->> 'status') = 'ENABLED' then 'ok'
+        when (attributes_std ->> 'status') = 'ENABLED' then 'ok'
         else 'alarm'
       end as status,
-      name || case
-        when coalesce((arguments ->> 'status'), '') = '' then ' ''status'' is not defined'
-        when (arguments ->> 'status') = 'ENABLED' then ' CloudGuard enabled'
+      split_part(address, '.', 2) || case
+        when coalesce((attributes_std ->> 'status'), '') = '' then ' ''status'' is not defined'
+        when (attributes_std ->> 'status') = 'ENABLED' then ' CloudGuard enabled'
         else ' CloudGuard disabled'
       end || '.' reason
       ${local.tag_dimensions_sql}
