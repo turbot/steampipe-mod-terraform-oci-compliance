@@ -1,16 +1,16 @@
 query "compute_instance_monitoring_enabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when ((arguments -> 'agent_config' -> 'is_monitoring_disabled') is null or
-          not (arguments -> 'agent_config' -> 'is_monitoring_disabled')::boolean)
+        when ((attributes_std -> 'agent_config' -> 'is_monitoring_disabled') is null or
+          not (attributes_std -> 'agent_config' -> 'is_monitoring_disabled')::boolean)
         then 'ok'
         else 'alarm'
       end as status,
       name || case
-        when ((arguments -> 'agent_config' -> 'is_monitoring_disabled') is null or
-          not (arguments -> 'agent_config' -> 'is_monitoring_disabled')::boolean)
+        when ((attributes_std -> 'agent_config' -> 'is_monitoring_disabled') is null or
+          not (attributes_std -> 'agent_config' -> 'is_monitoring_disabled')::boolean)
         then ' has monitoring enabled'
         else ' has monitoring disabled'
       end || '.' reason
@@ -26,16 +26,16 @@ query "compute_instance_monitoring_enabled" {
 query "compute_instance_metadata_service_disabled" {
   sql = <<-EOQ
     select
-      type || ' ' || name as resource,
+      address as resource,
       case
-        when ((arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled') is not null and
-          (arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean)
+        when ((attributes_std -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled') is not null and
+          (attributes_std -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean)
         then 'ok'
         else 'alarm'
       end as status,
-      name || case
-        when ((arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled') is not null and
-          (arguments -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean)
+      split_part(address, '.', 2) || case
+        when ((attributes_std -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled') is not null and
+          (attributes_std -> 'instance_options' ->> 'are_legacy_imds_endpoints_disabled')::boolean)
         then ' legacy metadata service endpoint disabled'
         else ' legacy metadata service endpoint enabled'
       end || '.' reason
