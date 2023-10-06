@@ -9,6 +9,10 @@ benchmark "identity" {
   description = "This benchmark provides a set of controls that detect Terraform OCI Identity and Access Management resources deviating from security best practices."
 
   children = [
+    control.identity_authentication_password_policy_contains_lowercase_characters,
+    control.identity_authentication_password_policy_contains_numeric_characters,
+    control.identity_authentication_password_policy_contains_special_characters,
+    control.identity_authentication_password_policy_contains_uppercase_characters,
     control.identity_authentication_password_policy_strong_min_length_14
   ]
 
@@ -25,4 +29,36 @@ control "identity_authentication_password_policy_strong_min_length_14" {
   tags = merge(local.identity_compliance_common_tags, {
     cis = true
   })
+}
+
+control "identity_authentication_password_policy_contains_lowercase_characters" {
+  title       = "IAM password policy should contain at least one lowercase character"
+  description = "This control checks whether the IAM password policy contains at least one lowercase character."
+  query       = query.identity_authentication_password_policy_contains_lowercase_characters
+
+  tags = local.identity_compliance_common_tags
+}
+
+control "identity_authentication_password_policy_contains_uppercase_characters" {
+  title       = "IAM password policy should contain at least one uppercase character"
+  description = "This control checks whether the IAM password policy contains at least one uppercase character."
+  query       = query.identity_authentication_password_policy_contains_uppercase_characters
+
+  tags = local.identity_compliance_common_tags
+}
+
+control "identity_authentication_password_policy_contains_numeric_characters" {
+  title       = "IAM password policy should contain at least one numeric character"
+  description = "This control checks whether the IAM password policy contains at least one numeric character."
+  query       = query.identity_authentication_password_policy_contains_numeric_characters
+
+  tags = local.identity_compliance_common_tags
+}
+
+control "identity_authentication_password_policy_contains_special_characters" {
+  title       = "IAM password policy should contain at least one special character"
+  description = "This control checks whether the IAM password policy contains at least one special character."
+  query       = query.identity_authentication_password_policy_contains_special_characters
+
+  tags = local.identity_compliance_common_tags
 }

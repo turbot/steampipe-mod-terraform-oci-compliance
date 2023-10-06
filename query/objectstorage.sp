@@ -64,3 +64,24 @@ query "objectstorage_bucket_versioning_enabled" {
       type = 'oci_objectstorage_bucket';
   EOQ
 }
+
+query "objectstorage_bucket_object_events_enabled" {
+  sql = <<-EOQ
+    select
+      address as resource,
+      case
+        when (attributes_std ->> 'object_events_enabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'object_events_enabled')::bool then ' object events enabled'
+        else ' object events disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'oci_objectstorage_bucket';
+  EOQ
+}
