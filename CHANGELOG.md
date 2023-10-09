@@ -1,3 +1,14 @@
+## v0.7 [2023-10-09]
+
+_What's new?_
+
+- Added 10 new controls across the benchmarks for the following services: ([#39](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/39))
+  - `Block Storage`
+  - `Compute`
+  - `Identity and Access Management`
+  - `Object Storage`
+  - `VCN`
+
 ## v0.6 [2023-10-03]
 
 _Enhancements_
