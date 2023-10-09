@@ -96,8 +96,8 @@ query "identity_authentication_password_policy_contains_special_characters" {
         else 'alarm'
       end as status,
       split_part(address, '.', 2) || case
-        when (attributes_std -> 'password_policy' ->> 'is_special_characters_required')::boolean then ' contains numeric characters'
-        else ' does not contain numeric characters'
+        when (attributes_std -> 'password_policy' ->> 'is_special_characters_required')::boolean then ' contains special characters'
+        else ' does not contain special characters'
       end || '.' reason
       ${local.common_dimensions_sql}
     from

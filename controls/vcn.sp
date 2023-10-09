@@ -100,7 +100,7 @@ control "vcn_security_group_has_stateless_ingress_security_rules" {
 
 control "vcn_inbound_security_lists_are_stateless" {
   title       = "Ensure VCN inbound security lists are stateless"
-  description = "This control checks if a VCN has inbound security lists are stateless."
+  description = "This control checks if a VCN has inbound security lists that are stateless."
   query       = query.vcn_inbound_security_lists_are_stateless
 
   tags = local.vcn_compliance_common_tags
