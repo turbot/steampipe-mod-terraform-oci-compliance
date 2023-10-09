@@ -10,8 +10,11 @@ benchmark "vcn" {
 
   children = [
     control.vcn_default_security_group_allow_icmp_only,
+    control.vcn_has_inbound_security_list_configured,
+    control.vcn_inbound_security_lists_are_stateless,
     control.vcn_network_security_group_restrict_ingress_rdp_all,
     control.vcn_network_security_group_restrict_ingress_ssh_all,
+    control.vcn_security_group_has_stateless_ingress_security_rules,
     control.vcn_security_list_restrict_ingress_rdp_all,
     control.vcn_security_list_restrict_ingress_ssh_all,
     control.vcn_subnet_public_access_blocked
@@ -77,4 +80,28 @@ control "vcn_subnet_public_access_blocked" {
 
   tags = local.vcn_compliance_common_tags
 
+}
+
+control "vcn_has_inbound_security_list_configured" {
+  title       = "Ensure VCN has at least one inbound security list configured"
+  description = "This control checks if a VCN has at least one inbound security list configured."
+  query       = query.vcn_has_inbound_security_list_configured
+
+  tags = local.vcn_compliance_common_tags
+}
+
+control "vcn_security_group_has_stateless_ingress_security_rules" {
+  title       = "Ensure Network Security Group has stateless ingress security rules"
+  description = "This control checks if a Network Security Group has stateless ingress security rules."
+  query       = query.vcn_security_group_has_stateless_ingress_security_rules
+
+  tags = local.vcn_compliance_common_tags
+}
+
+control "vcn_inbound_security_lists_are_stateless" {
+  title       = "Ensure VCN inbound security lists are stateless"
+  description = "This control checks if a VCN has inbound security lists that are stateless."
+  query       = query.vcn_inbound_security_lists_are_stateless
+
+  tags = local.vcn_compliance_common_tags
 }

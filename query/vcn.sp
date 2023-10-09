@@ -312,3 +312,91 @@ query "vcn_default_security_group_allow_icmp_only" {
       left join non_complaint as b on a.name = b.name;
   EOQ
 }
+
+query "vcn_has_inbound_security_list_configured" {
+  sql = <<-EOQ
+    select
+      address as resource,
+      case
+        when (attributes_std -> 'ingress_security_rules' ->> 'protocol') is not null then 'ok'
+        else 'alarm'
+      end as status,
+      split_part(address, '.', 2) || case
+        when (attributes_std -> 'ingress_security_rules' ->> 'protocol') is not null then ' has inbound security list configured'
+        else ' has no inbound security list configured'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'oci_core_security_list';
+  EOQ
+}
+
+query "vcn_security_group_has_stateless_ingress_security_rules" {
+  sql = <<-EOQ
+    select
+      address as resource,
+      case
+        when (attributes_std ->> 'direction' = 'INGRESS') and (attributes_std ->> 'stateless' is null or (attributes_std ->> 'stateless')::bool is not true) then 'alarm'
+        when (attributes_std ->> 'direction' is null) or (attributes_std ->> 'direction' <> 'INGRESS') then 'info'
+        else 'ok'
+      end as status,
+      split_part(address, '.', 2) || case
+        when (attributes_std ->> 'direction' = 'INGRESS') and (attributes_std ->> 'stateless' is null or (attributes_std ->> 'stateless')::bool is not true) then ' does not have stateless ingress security rules'
+        when (attributes_std ->> 'direction' is null) or (attributes_std ->> 'direction' <> 'INGRESS') then ' has no ingress security rules'
+        else ' has stateless ingress security rules'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'oci_core_network_security_group_security_rule';
+  EOQ
+}
+
+query "vcn_inbound_security_lists_are_stateless" {
+  sql = <<-EOQ
+    with all_security_rules as (
+      select
+        *
+      from
+        terraform_resource
+      where
+        type = 'oci_core_security_list'
+    ), non_complaint as (
+      select
+        name,
+        count(name) as count
+      from
+        all_security_rules,
+        jsonb_array_elements(
+        case jsonb_typeof(attributes_std -> 'ingress_security_rules')
+            when 'array' then (attributes_std -> 'ingress_security_rules')
+            else null end
+        ) as p
+      where
+        p ->> 'stateless' is not null and (p ->> 'stateless')::bool is not true
+        group by name
+    )
+    select
+      a.address as resource,
+      case
+        when b.count > 0 or (a.attributes_std -> 'ingress_security_rules' ->> 'stateless' is not null and (a.attributes_std -> 'ingress_security_rules' ->> 'stateless')::bool is not true) then 'alarm'
+        when (a.attributes_std ->> 'ingress_security_rules' is null) then 'skip'
+        else 'ok'
+      end as status,
+      split_part(a.address, '.', 2) || case
+        when b.count > 0 or (a.attributes_std -> 'ingress_security_rules' ->> 'stateless' is not null and (a.attributes_std -> 'ingress_security_rules' ->> 'stateless')::bool is not true) then ' has stateful ingress security rules'
+        when (a.attributes_std ->> 'ingress_security_rules' is null) then ' has no ingress security rules'
+        else ' has stateless ingress security rules'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      all_security_rules as a
+      left join non_complaint as b on a.name = b.name;
+  EOQ
+}

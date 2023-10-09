@@ -10,6 +10,7 @@ benchmark "objectstorage" {
 
   children = [
     control.objectstorage_bucket_encryption_enabled,
+    control.objectstorage_bucket_object_events_enabled,
     control.objectstorage_bucket_public_access_blocked,
     control.objectstorage_bucket_versioning_enabled
   ]
@@ -43,4 +44,12 @@ control "objectstorage_bucket_public_access_blocked" {
   tags = merge(local.objectstorage_compliance_common_tags, {
     cis = true
   })
+}
+
+control "objectstorage_bucket_object_events_enabled" {
+  title       = "Object Storage bucket object events should be enabled"
+  description = "This control checks whether the Object Storage bucket object events are enabled. Object events are used to track object state changes."
+  query       = query.objectstorage_bucket_object_events_enabled
+
+  tags = local.objectstorage_compliance_common_tags
 }
