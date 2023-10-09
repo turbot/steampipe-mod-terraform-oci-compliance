@@ -390,7 +390,7 @@ query "vcn_inbound_security_lists_are_stateless" {
       end as status,
       split_part(a.address, '.', 2) || case
         when b.count > 0 or (a.attributes_std -> 'ingress_security_rules' ->> 'stateless' is not null and (a.attributes_std -> 'ingress_security_rules' ->> 'stateless')::bool is not true) then ' has stateful ingress security rules'
-        when (a.attributes_std ->> 'ingress_security_rules' is null) then ' has no ingress sescurity rules'
+        when (a.attributes_std ->> 'ingress_security_rules' is null) then ' has no ingress security rules'
         else ' has stateless ingress security rules'
       end || '.' reason
       ${local.tag_dimensions_sql}
