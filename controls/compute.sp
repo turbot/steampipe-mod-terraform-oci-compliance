@@ -9,6 +9,7 @@ benchmark "compute" {
   description = "This benchmark provides a set of controls that detect Terraform OCI Compute resources deviating from security best practices."
 
   children = [
+    control.compute_instance_boot_volume_encryption_in_transit_enabled,
     control.compute_instance_metadata_service_disabled,
     control.compute_instance_monitoring_enabled
   ]
@@ -36,3 +37,11 @@ control "compute_instance_monitoring_enabled" {
 
 }
 
+control "compute_instance_boot_volume_encryption_in_transit_enabled" {
+  title       = "Compute instance boot volume encryption in transit should be enabled"
+  description = "This control checks whether the boot volume encryption in transit is enabled or not. The boot volume encryption in transit is a feature that enables you to encrypt the data on the boot volume when it is transferred between the boot volume and the instance."
+  query       = query.compute_instance_boot_volume_encryption_in_transit_enabled
+
+  tags = local.compute_compliance_common_tags
+
+}

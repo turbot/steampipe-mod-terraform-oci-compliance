@@ -47,3 +47,28 @@ query "compute_instance_metadata_service_disabled" {
       type = 'oci_core_instance';
   EOQ
 }
+
+query "compute_instance_boot_volume_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      address as resource,
+      case
+        when ((attributes_std -> 'launch_options' -> 'is_pv_encryption_in_transit_enabled') is not null and
+          (attributes_std -> 'launch_options' ->> 'is_pv_encryption_in_transit_enabled')::boolean)
+        then 'ok'
+        else 'alarm'
+      end as status,
+      name || case
+        when ((attributes_std -> 'launch_options' -> 'is_pv_encryption_in_transit_enabled') is not null and
+          (attributes_std -> 'launch_options' ->> 'is_pv_encryption_in_transit_enabled')::boolean)
+        then ' encryption in transit enabled'
+        else ' encryption in transit disabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'oci_core_instance';
+  EOQ
+}

@@ -62,3 +62,24 @@ query "blockstorage_boot_volume_encryption_enabled" {
       type = 'oci_core_boot_volume';
   EOQ
 }
+
+query "blockstorage_block_volume_backup_enabled" {
+  sql = <<-EOQ
+    select
+      address as resource,
+      case
+        when (attributes_std ->> 'backup_policy_id') is null then 'alarm'
+        else 'ok'
+      end as status,
+      split_part(address, '.', 2) || case
+      when (attributes_std ->> 'backup_policy_id') is null then ' backup disabled'
+        else ' backup enabled'
+      end || '.' reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      terraform_resource
+    where
+      type = 'oci_core_volume';
+  EOQ
+}
