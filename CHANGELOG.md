@@ -1,3 +1,9 @@
+## v0.8 [2023-11-03]
+
+_Breaking changes_
+
+- Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#43](https://github.com/turbot/steampipe-mod-terraform-oci-compliance/pull/43))
+
 ## v0.7 [2023-10-09]
 
 _What's new?_
