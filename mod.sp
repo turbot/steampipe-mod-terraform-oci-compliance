@@ -1,7 +1,7 @@
 mod "terraform_oci_compliance" {
   # Hub metadata
   title         = "Terraform OCI Compliance"
-  description   = "Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts."
+  description   = "Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts using Powerpipe and Steampipe."
   color         = "#844FBA"
   documentation = file("./docs/index.md")
   icon          = "/images/mods/turbot/terraform-oci-compliance.svg"
@@ -9,7 +9,7 @@ mod "terraform_oci_compliance" {
 
   opengraph {
     title       = "Powerpipe Mod to Analyze Terraform"
-    description = "Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts."
+    description = "Run compliance and security controls to detect Terraform OCI resources deviating from security best practices prior to deployment in your OCI accounts using Powerpipe and Steampipe."
     image       = "/images/mods/turbot/terraform-oci-compliance-social-graphic.png"
   }
 
